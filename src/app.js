@@ -5,6 +5,8 @@ import { dropSheet, saveOrWarn, swapMonth, tearSheet } from './fx.js';
 import { onWindowFitChange, renderCalendar } from './calendar.js';
 import { addImages, openItemForm, renderPad } from './pad.js';
 import { exportBackup, importBackup, toDataUrl } from './backup.js';
+import { openCreateCode, openEnterCode } from './share-dialog.js';
+import { isMuted, paperWhoosh, setMuted } from './sound.js';
 
 const clampDay = (key) => (key < FIRST_DAY ? FIRST_DAY : key > LAST_DAY ? LAST_DAY : key);
 
@@ -81,6 +83,7 @@ const ctx = {
 function goToMonth(month) {
   if (month === state.month) return;
   const direction = month > state.month ? 'forward' : 'back';
+  paperWhoosh(direction === 'forward' ? 1 : -1);
   swapMonth(() => { state.month = month; render(); }, direction);
 }
 
@@ -99,6 +102,10 @@ const handlers = {
     await refresh();
   },
   onExport: exportBackup,
+  onCreateCode: () => openCreateCode(ctx),
+  onEnterCode: () => openEnterCode(ctx),
+  soundOn: () => !isMuted(),
+  onToggleSound: () => { setMuted(!isMuted()); render(); },
   onImport: async (e) => {
     const [file] = e.target.files;
     e.target.value = '';
@@ -156,19 +163,23 @@ document.addEventListener('paste', (e) => {
 
 let pressedBackdrop = false;
 
+// Close only when the press also started on the backdrop: a text selection dragged out of a field must not discard the form.
+const paperDialog = (id, onclose) => h('dialog', {
+  id,
+  class: 'paper-dialog',
+  onclose,
+  onpointerdown: (e) => { pressedBackdrop = e.target === e.currentTarget; },
+  onclick: (e) => { if (pressedBackdrop && e.target === e.currentTarget) e.currentTarget.close(); },
+});
+
 function mountDialogs() {
-  const form = h('dialog', {
-    id: 'item-form',
-    onclose: () => focusDay(),
-    // Close only when the press also started on the backdrop: a text selection dragged out of a field must not discard the form.
-    onpointerdown: (e) => { pressedBackdrop = e.target === e.currentTarget; },
-    onclick: (e) => { if (pressedBackdrop && e.target === e.currentTarget) e.currentTarget.close(); },
-  });
+  const form = paperDialog('item-form', () => focusDay());
+  const share = paperDialog('share');
   const lightbox = h('dialog', {
     id: 'lightbox',
     onclick: (e) => e.currentTarget.close(),
   });
-  document.body.append(form, lightbox);
+  document.body.append(form, share, lightbox);
 }
 
 const app = document.getElementById('app');

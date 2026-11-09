@@ -117,8 +117,15 @@ export function renderCalendar(root, state, handlers) {
         }, formatShortMonth(m));
       })),
       h('div', { class: 'backup' },
+        h('button', { class: 'link', type: 'button', 'data-fk': 'makecode', onclick: handlers.onCreateCode }, 'สร้างโค้ด'),
+        h('button', { class: 'link', type: 'button', 'data-fk': 'entercode', onclick: handlers.onEnterCode }, 'ใส่โค้ด'),
         h('button', { class: 'link', type: 'button', 'data-fk': 'export', onclick: handlers.onExport }, 'สำรองข้อมูล'),
         h('label', { class: 'link' }, 'นำเข้าข้อมูล',
-          h('input', { class: 'sr-only', type: 'file', accept: '.json,application/json', onchange: handlers.onImport })))),
+          h('input', { class: 'sr-only', type: 'file', accept: '.json,application/json', onchange: handlers.onImport })),
+        h('button', {
+          class: 'link', type: 'button', 'data-fk': 'sound', 'aria-label': 'เสียงกระดาษ',
+          'aria-pressed': handlers.soundOn() ? 'true' : 'false',
+          onclick: handlers.onToggleSound,
+        }, handlers.soundOn() ? 'เสียง: เปิด' : 'เสียง: ปิด'))),
   );
 }

@@ -34,8 +34,10 @@ test('ไฟล์เสีย ข้อมูลเดิมอยู่คร�
 test('กดยกเลิกที่หน้ายืนยัน ข้อมูลเดิมอยู่ครบ', async ({ page }) => {
   await addItem(page, '2026-11-10', 'ห้ามหาย');
   page.on('dialog', (d) => d.dismiss());
+  const asked = page.waitForEvent('dialog');
   const body = JSON.stringify({ app: 'calendarforme', version: 1, items: [], images: [] });
   await page.getByLabel('นำเข้าข้อมูล').setInputFiles({ name: 'b.json', mimeType: 'application/json', buffer: Buffer.from(body) });
+  await asked;
   await page.reload();
   await expect(cell(page, '2026-11-10').locator('.chip')).toContainText('ห้ามหาย');
 });
