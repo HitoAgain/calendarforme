@@ -1,0 +1,53 @@
+<!doctype html><html lang="th"><meta charset="utf-8"><title>แผ่นแสตมป์</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Sriracha&family=Noto+Sans+Thai:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;background:#10241f;color:#fbf7ec;font-family:"Noto Sans Thai",sans-serif;display:grid;grid-template-rows:84px 1fr;--ink:#c8102e}
+header{display:flex;align-items:center;gap:20px;padding:0 28px}
+h1{font-size:40px;font-weight:800;letter-spacing:-.01em}
+.seq{display:flex;gap:6px;margin-left:12px}
+.seq b{width:42px;height:32px;background:#1d3a33;font:400 13px "Noto Sans Thai";display:grid;place-items:center;color:#a9c0b6}
+.seq b.on{background:var(--ink);color:#fff}
+.sp{flex:1}
+button{font:600 15px "Noto Sans Thai";border:0;background:#fbf7ec;color:#10241f;padding:10px 16px}
+button.g{background:#1d3a33;color:#fbf7ec}
+main{display:grid;grid-template-columns:1fr 272px;gap:18px;padding:0 28px 22px;min-height:0}
+.sheet{background:var(--ink);padding:14px;display:grid;grid-template-rows:26px 1fr;gap:4px;min-height:0}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);color:#ffd9d9;font-size:13px;font-weight:600;padding:0 8px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:repeat(6,1fr);gap:7px;min-height:0}
+.s{--r:5px;--g:13px;background:#fbf7ec;color:#20120f;padding:7px 10px;position:relative;overflow:hidden;
+ -webkit-mask:radial-gradient(var(--r) at var(--r) var(--r),#0000 98%,#000) calc(var(--r)*-1) calc(var(--r)*-1)/var(--g) var(--g);}
+.s .n{font:400 42px/1 Anton,sans-serif;color:var(--ink)}
+.s.past{background:#ead9cf}.s.past .n{color:#a5867b}
+.s.past:after{content:"";position:absolute;left:-10%;right:-10%;top:50%;border-top:2px solid #a5867b;transform:rotate(-14deg)}
+.s.out{background:#d9202f;opacity:.28}
+.s.today{background:#f4b400}.s.today .n{color:#10241f;font-size:56px}
+.s .c{font-size:12px;font-weight:600;line-height:1.35;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c.d{color:#c8102e}.c.a{color:#123c8c}
+.s.img{background:#123c8c;color:#fff}.s.img .n{color:#fff}
+.s.img .sun{position:absolute;right:-16px;bottom:-22px;width:110px;height:110px;border-radius:50%;background:#f4b400}
+.pm{position:absolute;right:8px;top:6px;width:54px;height:54px;border:2px solid #123c8c;border-radius:50%;color:#123c8c;font-size:9px;display:grid;place-items:center;transform:rotate(-16deg);opacity:.8;font-weight:800}
+aside{display:grid;grid-template-rows:auto auto 1fr;gap:14px;min-height:0}
+.card{background:#1d3a33;padding:16px}
+.card small{font-size:13px;color:#a9c0b6}
+.big{font:400 58px/1 Anton,sans-serif;color:#f4b400}
+.t{font-weight:800;font-size:20px;margin-top:4px}
+.ring{width:124px;height:124px;border-radius:50%;background:conic-gradient(#f4b400 0 40%,#10241f 0);display:grid;place-items:center;margin:8px auto 0}
+.ring i{width:92px;height:92px;border-radius:50%;background:#1d3a33;display:grid;place-items:center;font:400 30px Anton;font-style:normal}
+</style>
+<header><h1>พฤศจิกายน 2026</h1>
+<div class="seq"><b class="on">พ.ย.</b><b>ธ.ค.</b><b>ม.ค.</b><b>ก.พ.</b><b>มี.ค.</b><b>เม.ย.</b><b>พ.ค.</b><b>มิ.ย.</b><b>ก.ค.</b></div>
+<span class="sp"></span><button class="g">‹</button><button class="g">วันนี้</button><button class="g">›</button><button>+ เพิ่มรายการ</button></header>
+<main><section class="sheet"><div class="dow"><span>อา</span><span>จ</span><span>อ</span><span>พ</span><span>พฤ</span><span>ศ</span><span>ส</span></div>
+<div class="grid">
+<div class="s past"><div class="n">1</div></div><div class="s past"><div class="n">2</div></div><div class="s past"><div class="n">3</div></div><div class="s past"><div class="n">4</div></div><div class="s past"><div class="n">5</div></div><div class="s past"><div class="n">6</div></div>
+<div class="s today"><div class="n">7</div><div class="c">ซื้อของเข้าบ้าน</div></div>
+<div class="s"><div class="n">8</div></div><div class="s"><div class="n">9</div><div class="c d">จ่ายค่าเน็ต</div></div><div class="s"><div class="n">10</div><div class="c d">ส่งรายงานบท 3</div><div class="pm">เสร็จแล้ว</div></div><div class="s"><div class="n">11</div></div><div class="s img"><span class="sun"></span><div class="n">12</div><div class="c">เที่ยวเขาใหญ่</div></div><div class="s img"><span class="sun"></span><div class="n">13</div></div><div class="s"><div class="n">14</div><div class="c a">กินข้าวกับที่บ้าน</div></div>
+<div class="s"><div class="n">15</div></div><div class="s"><div class="n">16</div><div class="c d">นัดหมอฟัน 10:00</div></div><div class="s"><div class="n">17</div></div><div class="s"><div class="n">18</div></div><div class="s"><div class="n">19</div><div class="c a">ดูหนัง</div><div class="c d">สอบย่อย</div></div><div class="s"><div class="n">20</div></div><div class="s"><div class="n">21</div></div>
+<div class="s"><div class="n">22</div></div><div class="s"><div class="n">23</div></div><div class="s"><div class="n">24</div><div class="c a">ลอยกระทง</div></div><div class="s"><div class="n">25</div></div><div class="s"><div class="n">26</div></div><div class="s"><div class="n">27</div><div class="c d">จ่ายค่าห้อง</div></div><div class="s"><div class="n">28</div></div>
+<div class="s"><div class="n">29</div></div><div class="s"><div class="n">30</div></div><div class="s out"><div class="n">1</div></div><div class="s out"><div class="n">2</div></div><div class="s out"><div class="n">3</div></div><div class="s out"><div class="n">4</div></div><div class="s out"><div class="n">5</div></div>
+<div class="s out"><div class="n">6</div></div><div class="s out"><div class="n">7</div></div><div class="s out"><div class="n">8</div></div><div class="s out"><div class="n">9</div></div><div class="s out"><div class="n">10</div></div><div class="s out"><div class="n">11</div></div><div class="s out"><div class="n">12</div></div>
+</div></section>
+<aside><div class="card"><small>ถัดไป</small><div class="big">อีก 2 วัน</div><div class="t">จ่ายค่าเน็ต</div></div>
+<div class="card"><small>หน้าที่เดือนนี้</small><div class="ring"><i>2/5</i></div></div>
+<div class="card"><small>ลากรูปมาวางบนวันไหนก็ได้</small><div class="t" style="margin-top:12px">SVG · JPG · PNG</div></div></aside></main></html>

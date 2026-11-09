@@ -1,0 +1,13 @@
+{
+  "name": "calendarforme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/unit/*.test.js\"",
+    "e2e": "playwright test",
+    "start": "node server.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0"
+  }
+}

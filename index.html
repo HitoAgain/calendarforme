@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ปฏิทินของฉัน</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d0021b'/%3E%3Crect x='6' y='9' width='20' height='3' fill='%23f7f3e8'/%3E%3Crect x='6' y='16' width='20' height='8' fill='%23f7f3e8'/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/NotoSerifThai-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <p id="file-warning" hidden>เปิดด้วยการดับเบิลคลิกไฟล์นี้ไม่ได้ ให้เปิดผ่าน start.cmd แทน</p>
+  <div id="app"></div>
+  <script>
+    if (location.protocol === 'file:') document.getElementById('file-warning').hidden = false;
+  </script>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

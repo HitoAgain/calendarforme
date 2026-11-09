@@ -1,0 +1,6 @@
+node_modules/
+test-results/
+playwright-report/
+.superpowers/
+.impeccable/review/
+.impeccable/hook.cache.json

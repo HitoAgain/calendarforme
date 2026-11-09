@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T21:10:00+07:00",
+  "title": "Design System: ปฏิทินของฉัน (calendarforme)",
+  "extensions": {
+    "colorMeta": {
+      "calendar-red": { "role": "primary", "displayName": "Calendar Red", "canonical": "#d0021b", "tonalRamp": ["#3d0007", "#6a000e", "#a50015", "#d0021b", "#e8424f", "#f5838c", "#fbbcc1", "#ffe7ea"] },
+      "red-deep": { "role": "primary", "displayName": "Deep Red", "canonical": "#a50015", "tonalRamp": ["#2e0005", "#55000b", "#7d0010", "#a50015", "#c83a45", "#e07c84", "#f1b9bd", "#fbe6e8"] },
+      "almanac-green": { "role": "secondary", "displayName": "Almanac Green", "canonical": "#2e7d4f", "tonalRamp": ["#0c2415", "#163f26", "#215d3a", "#2e7d4f", "#4f9a6c", "#7fb895", "#b4d6c0", "#e3f0e7"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#14110f", "tonalRamp": ["#14110f", "#2b2621", "#4a443a", "#6b6356", "#948b7b", "#b9b0a0", "#dcd5c6", "#f7f3e8"] },
+      "paper": { "role": "neutral", "displayName": "Paper", "canonical": "#f7f3e8", "tonalRamp": ["#3a362d", "#6b6356", "#948b7b", "#b9b0a0", "#cfc7b7", "#eee7d5", "#f7f3e8", "#fffdf6"] },
+      "paper-bright": { "role": "neutral", "displayName": "Bright Paper", "canonical": "#fffdf6" },
+      "paper-hover": { "role": "neutral", "displayName": "Paper Hover", "canonical": "#eee7d5" },
+      "muted-ink": { "role": "neutral", "displayName": "Muted Ink", "canonical": "#6b6356" },
+      "rule": { "role": "neutral", "displayName": "Rule", "canonical": "#b9b0a0" },
+      "pad-soft": { "role": "neutral", "displayName": "Pad Soft", "canonical": "#ffe7ea" },
+      "pad-rule": { "role": "neutral", "displayName": "Pad Rule", "canonical": "#ff9aa6" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The single giant day numeral on the pad." },
+      "headline": { "displayName": "Headline", "purpose": "The month title." },
+      "day-numeral": { "displayName": "Day Numeral", "purpose": "Grid day numbers; outside-month days at 700 and 0.6x." },
+      "title": { "displayName": "Title", "purpose": "Dialog headings." },
+      "pad-line": { "displayName": "Pad Line", "purpose": "Month-and-year (22px) and weekday (18px) on the pad." },
+      "body": { "displayName": "Body", "purpose": "Base text and pad entries." },
+      "label": { "displayName": "Label", "purpose": "Buttons, weekday row, month tabs, field labels, toast, links." },
+      "chip": { "displayName": "Chip", "purpose": "One-line entry chips in day cells." }
+    },
+    "shadows": [
+      { "name": "falling-sheet", "value": "filter: drop-shadow(0 14px 18px rgb(20 17 15 / .35))", "purpose": "Only on the wrapper of a page tearing off and falling. Nothing at rest casts a shadow." }
+    ],
+    "motion": [
+      { "name": "ease-paper", "value": "cubic-bezier(.16, 1, .3, 1)", "purpose": "Settling without bounce: page hover lift, tear button, buttons, dialog, toast, chip pop, sheet drop, month slide." },
+      { "name": "tear-fall", "value": "760ms cubic-bezier(.45,.05,.8,.5)", "purpose": "The torn sheet falls with gravity, swaying and rotating to 19deg." },
+      { "name": "sheet-drop", "value": "460ms cubic-bezier(.16,1,.3,1)", "purpose": "Going back: a sheet drops onto the pad from -104%." },
+      { "name": "scrap-burst", "value": "700-1200ms cubic-bezier(.3,.5,.6,1)", "purpose": "Red and ink paper scraps when a duty is ticked or a sheet rips." },
+      { "name": "month-slide", "value": "380ms view transition, 7% horizontal", "purpose": "Month change slides in the direction of travel." },
+      { "name": "hover", "value": "150ms background-color", "purpose": "Fill changes on buttons, cells, tabs." }
+    ],
+    "breakpoints": [
+      { "name": "narrow", "value": "760px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Default sheet control: square ink outline that fills solid on hover.",
+      "html": "<button class=\"ds-btn\">วันนี้</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 0 14px; background: transparent; color: #14110f; border: 1.5px solid #14110f; border-radius: 0; font: 600 15px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; cursor: pointer; transition: background-color .15s, color .15s, transform .2s cubic-bezier(.16,1,.3,1); } .ds-btn:hover { background: #14110f; color: #f7f3e8; } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid #14110f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The add action: ink fill that turns calendar red on hover.",
+      "html": "<button class=\"ds-btn-primary\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M8 3v10M3 8h10\"/></svg>เพิ่มรายการ</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; background: #14110f; color: #f7f3e8; border: 1.5px solid #14110f; border-radius: 0; font: 600 15px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; cursor: pointer; transition: background-color .15s, color .15s, transform .2s cubic-bezier(.16,1,.3,1); } .ds-btn-primary:hover { background: #d0021b; border-color: #d0021b; color: #fff; } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 2px solid #14110f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Tear Button",
+      "kind": "button",
+      "refersTo": "tear-button",
+      "description": "Pad control on red paper: dashed white stroke, sinks and deepens on hover.",
+      "html": "<div class=\"ds-pad\"><button class=\"ds-tear\"><svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M8 3v9M4 8.5 8 12.5l4-4\"/></svg>ฉีกหน้านี้</button></div>",
+      "css": ".ds-pad { background: #d0021b; color: #fff; padding: 16px; } .ds-tear { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; background: transparent; color: #fff; border: 1.5px dashed currentColor; border-radius: 0; font: 600 14px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; cursor: pointer; transition: background-color .15s, transform .25s cubic-bezier(.16,1,.3,1); } .ds-tear:hover { background: #a50015; transform: translateY(3px); } .ds-tear:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Month Tabs",
+      "kind": "nav",
+      "refersTo": "month-tab",
+      "description": "The months chooser in the strip under the grid; current month is solid ink.",
+      "html": "<nav class=\"ds-months\"><button aria-current=\"true\">พ.ย.</button><button>ธ.ค.</button><button>ม.ค.</button></nav>",
+      "css": ".ds-months { display: flex; gap: 2px; } .ds-months button { min-height: 34px; padding: 0 10px; background: none; border: 0; border-radius: 0; color: #14110f; font: 600 14px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; cursor: pointer; transition: background-color .15s, color .15s; } .ds-months button:hover { background: #eee7d5; } .ds-months button[aria-current] { background: #14110f; color: #f7f3e8; } .ds-months button:focus-visible { outline: 2px solid #14110f; outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square paper field with a 1.5px ink stroke.",
+      "html": "<label class=\"ds-field\">ชื่อรายการ<input class=\"ds-input\" value=\"จ่ายค่าเน็ต\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font: 600 14px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; color: #14110f; } .ds-input { width: 100%; min-height: 42px; padding: 7px 10px; background: #f7f3e8; color: #14110f; border: 1.5px solid #14110f; border-radius: 0; font: 400 15px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; } .ds-input:focus-visible { outline: 2px solid #14110f; outline-offset: 2px; } .ds-input[aria-invalid=\"true\"] { border-color: #d0021b; box-shadow: inset 0 0 0 1px #d0021b; }"
+    },
+    {
+      "name": "Entry Chips",
+      "kind": "chip",
+      "refersTo": "",
+      "description": "One-line entries in a day cell: red square for duties, green circle for activities.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-chip\"><i class=\"ds-mark ds-duty\"></i><span>จ่ายค่าเน็ต</span></span><span class=\"ds-chip\"><i class=\"ds-mark ds-activity\"></i><span>เที่ยวเขาใหญ่</span></span><span class=\"ds-chip ds-done\"><i class=\"ds-mark ds-duty\"></i><span>ส่งรายงาน</span></span></div>",
+      "css": ".ds-chips { display: grid; color: #14110f; } .ds-chip { display: flex; align-items: center; gap: 5px; font: 600 13.5px/21px 'Noto Sans Thai', 'Leelawadee UI', sans-serif; } .ds-mark { flex: none; width: 8px; height: 8px; display: block; } .ds-duty { background: #d0021b; } .ds-activity { background: #2e7d4f; border-radius: 50%; } .ds-done span { text-decoration: line-through; opacity: .7; }"
+    },
+    {
+      "name": "Day Cells",
+      "kind": "custom",
+      "refersTo": "day-today",
+      "description": "Grid days on dashed rules: weekend red, past struck, today a solid red block.",
+      "html": "<div class=\"ds-days\"><button class=\"ds-day ds-past\">6</button><button class=\"ds-day ds-today\">7</button><button class=\"ds-day ds-weekend\">8</button><button class=\"ds-day\">9</button></div>",
+      "css": ".ds-days { display: grid; grid-template-columns: repeat(4, 96px); border-top: 2px solid #14110f; background: #f7f3e8; } .ds-day { height: 80px; padding: 4px 8px; display: flex; align-items: flex-start; text-align: left; background: none; border: 0; border-bottom: 1px dashed #b9b0a0; border-radius: 0; color: #14110f; font: 900 36px/1.25 'Noto Serif Thai', 'Leelawadee UI', serif; font-variant-numeric: lining-nums; cursor: pointer; transition: background-color .15s; } .ds-day:hover { background: #eee7d5; } .ds-day:focus-visible { outline: 2px solid #14110f; outline-offset: -3px; } .ds-weekend { color: #d0021b; } .ds-past { color: #6b6356; text-decoration: line-through; text-decoration-thickness: 2px; } .ds-today, .ds-today:hover { background: #d0021b; color: #fff; } .ds-today:focus-visible { outline-color: #fff; }"
+    },
+    {
+      "name": "Pad Page",
+      "kind": "card",
+      "refersTo": "pad-page",
+      "description": "The red tear-off page under the ink binding with its dashed perforation.",
+      "html": "<div class=\"ds-padcol\"><div class=\"ds-binding\"></div><div class=\"ds-page\"><p class=\"ds-wd\">วันเสาร์<b> · วันนี้</b></p><p class=\"ds-num\">7</p><p class=\"ds-ml\">พฤศจิกายน 2026</p></div></div>",
+      "css": ".ds-padcol { width: 300px; background: #14110f; } .ds-binding { height: 14px; background: #14110f; } .ds-page { background: #d0021b; color: #fff; border-top: 2px dashed #fff; padding: 10px 24px 16px; text-align: center; transition: transform .45s cubic-bezier(.16,1,.3,1); transform-origin: top right; cursor: grab; } .ds-page:hover { transform: translateY(3px) rotate(.4deg); } .ds-wd { margin: 0; font: 600 18px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; } .ds-wd b { font-weight: 700; } .ds-num { margin: 0; font: 900 140px/1.05 'Noto Serif Thai', 'Leelawadee UI', serif; letter-spacing: -.02em; font-variant-numeric: lining-nums; } .ds-ml { margin: 0; font: 600 22px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; }"
+    },
+    {
+      "name": "Toast",
+      "kind": "custom",
+      "refersTo": "toast",
+      "description": "Ink status bar at the bottom with an underlined undo.",
+      "html": "<div class=\"ds-toast\" role=\"status\"><span>ลบรายการแล้ว</span><button>เลิกทำ</button></div>",
+      "css": ".ds-toast { display: inline-flex; align-items: center; gap: 14px; padding: 10px 16px; background: #14110f; color: #f7f3e8; font: 600 14px/1.6 'Noto Sans Thai', 'Leelawadee UI', sans-serif; } .ds-toast button { background: none; border: 0; padding: 2px 0; color: #ffb4bd; font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; } .ds-toast button:focus-visible { outline: 2px solid #f7f3e8; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Tear-Off Pad (ปฏิทินฉีก)",
+    "overview": "The interface is the calendar object itself: a Thai-Chinese tear-off day pad, flooded in calendar red, bound by an ink strip, and joined to a full month sheet printed on thin off-white paper. Everything reads as print and paper: black-weight Thai serif numerals, plain Thai sans for everything small, dashed perforation lines ruling the sheet, square corners, flat ink.\n\nDensity is a printed wall calendar's: the month must be read at a glance, so numerals are large and black, entries are single-line chips under them, and the chrome is reduced to outline buttons and a slim month strip. Life comes from paper behaviour rather than decoration: the page lifts under the hand, rips along its perforation and falls with weight, scraps burst when a duty is ticked, months slide by.\n\nIt rejects the office calendar: no sidebar-plus-blue-chips arrangement, no rounded cards, no elevation. Light theme only, by decision.",
+    "keyCharacteristics": [
+      "One flood of calendar red (the pad page, today), ink black, thin paper, almanac green as the third ink.",
+      "Black-weight (900) Thai serif numerals; Thai sans 400/600/700 for all small text.",
+      "Dashed perforation lines as the sheet's rules and the pad's tear edge.",
+      "Square corners everywhere; the only circle is the activity mark.",
+      "Flat at rest; one drop shadow, only under a sheet in motion.",
+      "Motion with paper weight: falls with gravity, settles without bounce."
+    ],
+    "rules": [
+      { "name": "The One Flood Rule", "body": "Calendar red floods exactly two things: the pad page and today's cell. Elsewhere it is ink-sized (weekend numerals, duty marks, ticks). Never introduce another red surface.", "section": "colors" },
+      { "name": "The Shape-and-Ink Rule", "body": "Duties are red squares, activities green circles. Kind is always carried by shape as well as colour; on the red pad both marks turn white and keep their shapes.", "section": "colors" },
+      { "name": "The Serif Is for Numbers Rule", "body": "The serif carries numerals and titles only, always at 900 (700 for receding numerals). Everything small is the sans at 600.", "section": "typography" },
+      { "name": "The Paper in Motion Rule", "body": "Nothing at rest casts a shadow. The only shadow in the world is under a sheet that is falling.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep calendar red as a flood only on the pad page and today's cell.",
+      "Do carry entry kind by shape and colour together: red square for duties, green circle for activities.",
+      "Do set every numeral and title in Noto Serif Thai 900 with lining numerals; set small text in Noto Sans Thai 600.",
+      "Do use dashed strokes for anything that is part of the paper (perforations, day rules, pad add controls) and 1.5px solid ink for controls on the sheet.",
+      "Do let motion behave like paper: fall with gravity, settle on cubic-bezier(.16, 1, .3, 1), never bounce, and drop it under reduced motion."
+    ],
+    "donts": [
+      "Don't round corners; the activity mark is the only circle.",
+      "Don't add shadows to anything at rest; the falling sheet's drop shadow is the only one.",
+      "Don't use the office-calendar arrangement of a sidebar with blue rounded event chips.",
+      "Don't add a dark theme; the world is light only, by decision."
+    ]
+  }
+}
