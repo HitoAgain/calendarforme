@@ -1,6 +1,23 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { MONTHS, FIRST_DAY, LAST_DAY, toKey, fromKey, inRange, monthOf, clampMonth, monthGrid, daysBetween, relativeDay, formatMonth, formatDay } from '../../src/dates.js';
+import { MONTHS, FIRST_DAY, LAST_DAY, toKey, fromKey, inRange, monthOf, clampMonth, monthGrid, daysBetween, relativeDay, formatMonth, formatDay, repeatDates } from '../../src/dates.js';
+
+test('repeatDates ทุกวัน ทุกสัปดาห์ ไม่รวมวันแรก', () => {
+  assert.deepEqual(repeatDates('2026-11-10', 'daily', '2026-11-13'), ['2026-11-11', '2026-11-12', '2026-11-13']);
+  assert.deepEqual(repeatDates('2026-11-10', 'weekly', '2026-12-01'), ['2026-11-17', '2026-11-24', '2026-12-01']);
+});
+test('repeatDates ทุกเดือน วันที่ 31 ตกวันสุดท้ายของเดือนที่สั้นกว่า', () => {
+  assert.deepEqual(repeatDates('2027-01-31', 'monthly', '2027-04-30'), ['2027-02-28', '2027-03-31', '2027-04-30']);
+});
+test('repeatDates ไม่ทำซ้ำ หรือวันสิ้นสุดก่อนวันเริ่ม ได้ว่าง', () => {
+  assert.deepEqual(repeatDates('2026-11-10', 'none', '2026-12-01'), []);
+  assert.deepEqual(repeatDates('2026-11-10', 'daily', '2026-11-09'), []);
+  assert.deepEqual(repeatDates('2026-11-10', 'daily', ''), []);
+});
+test('repeatDates ไม่เกินวันสุดท้ายของปฏิทิน', () => {
+  const r = repeatDates('2027-07-28', 'daily', '2027-12-31');
+  assert.deepEqual(r, ['2027-07-29', '2027-07-30', '2027-07-31']);
+});
 
 test('toKey ใช้วันท้องถิ่น ไม่ใช่ UTC', () => assert.equal(toKey(new Date(2026, 10, 7, 0, 30)), '2026-11-07'));
 test('fromKey กลับมาเป็นวันเดิม', () => assert.equal(toKey(fromKey('2027-07-31')), '2027-07-31'));

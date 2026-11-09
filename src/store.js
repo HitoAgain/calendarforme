@@ -42,6 +42,9 @@ export async function getAll() {
 }
 
 export const putItem = (item) => write('items', 'put', item);
+// Several items in one transaction: all land or none do.
+export const putItems = (items) => tx('readwrite', (t) => { items.forEach((i) => t.objectStore('items').put(i)); });
+export const deleteItems = (ids) => tx('readwrite', (t) => { ids.forEach((id) => t.objectStore('items').delete(id)); });
 export const deleteItem = (id) => write('items', 'delete', id);
 export const putImage = (image) => write('images', 'put', image);
 export const deleteImage = (id) => write('images', 'delete', id);

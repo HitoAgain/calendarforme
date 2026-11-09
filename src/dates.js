@@ -34,6 +34,26 @@ export function addDays(key, n) {
   return toKey(new Date(d.getFullYear(), d.getMonth(), d.getDate() + n));
 }
 
+// Dates after `start` up to `until` (and never past LAST_DAY). Monthly keeps the start's day, landing on the month's last day when it is shorter.
+export function repeatDates(start, freq, until) {
+  const end = until > LAST_DAY ? LAST_DAY : until;
+  if (!['daily', 'weekly', 'monthly'].includes(freq) || !end || end <= start) return [];
+  const s = fromKey(start);
+  const out = [];
+  for (let n = 1; ; n++) {
+    let d;
+    if (freq === 'monthly') {
+      const lastOfMonth = new Date(s.getFullYear(), s.getMonth() + n + 1, 0).getDate();
+      d = new Date(s.getFullYear(), s.getMonth() + n, Math.min(s.getDate(), lastOfMonth));
+    } else {
+      d = new Date(s.getFullYear(), s.getMonth(), s.getDate() + n * (freq === 'weekly' ? 7 : 1));
+    }
+    const key = toKey(d);
+    if (key > end) return out;
+    out.push(key);
+  }
+}
+
 export function daysBetween(fromK, toK) {
   const utc = (k) => { const [y, m, d] = k.split('-').map(Number); return Date.UTC(y, m - 1, d); };
   return Math.round((utc(toK) - utc(fromK)) / 86400000);

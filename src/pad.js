@@ -1,8 +1,8 @@
-import { FIRST_DAY, LAST_DAY, formatDay, formatMonth, formatWeekday, fromKey, monthOf, relativeDay } from './dates.js';
+import { FIRST_DAY, LAST_DAY, formatDay, formatMonth, formatWeekday, fromKey, monthOf, relativeDay, repeatDates } from './dates.js';
 import { h, icon } from './dom.js';
 import { checkImageFile, monthStats, nextUp, sortDay, validateItem } from './model.js';
 import { celebrate, saveOrWarn, toast } from './fx.js';
-import { deleteImage, deleteItem, putImage, putItem } from './store.js';
+import { deleteImage, deleteItem, putImage, putItem, deleteItems, putItems } from './store.js';
 
 const TEAR_DISTANCE = 110;
 
@@ -36,8 +36,22 @@ export function openItemForm(ctx, { date, item }) {
   const kind = item?.kind ?? 'duty';
   const radio = (value, label) => h('label', { class: 'radio', 'data-kind': value },
     h('input', { type: 'radio', name: 'kind', value, checked: kind === value }), h('i', { class: 'mark' }), label);
+  const repeatField = h('select', { id: 'f-repeat', name: 'repeat' },
+    h('option', { value: 'none' }, 'ไม่ทำซ้ำ'), h('option', { value: 'daily' }, 'ทุกวัน'),
+    h('option', { value: 'weekly' }, 'ทุกสัปดาห์'), h('option', { value: 'monthly' }, 'ทุกเดือน'));
+  const untilField = h('input', { id: 'f-until', name: 'until', type: 'date', min: FIRST_DAY, max: LAST_DAY, value: LAST_DAY, disabled: true });
+  const count = h('p', { class: 'repeat-count', id: 'f-repeat-count', 'aria-live': 'polite' });
+  const showCount = (text, isError = false) => { count.textContent = text; count.classList.toggle('form-error', isError); };
+  const updateCount = () => {
+    const freq = repeatField.value;
+    untilField.disabled = freq === 'none';
+    const n = repeatDates(form.elements.date.value, freq, untilField.value).length;
+    showCount(freq === 'none' ? '' : n ? `จะเพิ่มอีก ${n} วัน` : 'ไม่มีวันให้ทำซ้ำในช่วงนี้');
+  };
   const form = h('form', {
     method: 'dialog',
+    oninput: updateCount,
+    onchange: updateCount,
     noValidate: true,
     onsubmit: async (e) => {
       e.preventDefault();
@@ -50,11 +64,24 @@ export function openItemForm(ctx, { date, item }) {
         title.focus();
         return;
       }
-      if (!(await saveOrWarn(putItem(result.value)))) return;
+      const dates = repeatDates(result.value.date, data.repeat, data.until);
+      if (data.repeat !== 'none' && !dates.length) {
+        showCount('ไม่มีวันให้ทำซ้ำในช่วงนี้ เลือกวันทำซ้ำถึงให้ไกลกว่านี้', true);
+        untilField.focus();
+        return;
+      }
+      // Copy ids derive from the original's id, so a double submit rewrites them instead of doubling them.
+      const copies = dates.map((d, n) => ({ ...result.value, id: `${id}~${d}`, date: d, done: false, createdAt: createdAt + n + 1 }));
+      if (!(await saveOrWarn(putItems([result.value, ...copies])))) return;
       ctx.state.justAdded = item ? null : result.value.id;
       dialog.close();
       await ctx.refresh();
       ctx.focusDay();
+      if (copies.length) {
+        toast(`ทำซ้ำ "${result.value.title}" เพิ่มอีก ${copies.length} วันแล้ว`, {
+          undo: async () => { await saveOrWarn(deleteItems(copies.map((c) => c.id))); await ctx.refresh(); },
+        });
+      }
     },
   },
   h('h2', {}, item ? 'แก้ไขรายการ' : 'เพิ่มรายการ'),
@@ -65,6 +92,10 @@ export function openItemForm(ctx, { date, item }) {
       h('input', { id: 'f-date', name: 'date', type: 'date', min: FIRST_DAY, max: LAST_DAY, value: date })),
     h('div', {}, h('label', { class: 'field', htmlFor: 'f-time' }, 'เวลา'),
       h('input', { id: 'f-time', name: 'time', type: 'time', value: item?.time ?? '' }))),
+  h('div', { class: 'row' },
+    h('div', {}, h('label', { class: 'field', htmlFor: 'f-repeat' }, 'ทำซ้ำ'), repeatField),
+    h('div', {}, h('label', { class: 'field', htmlFor: 'f-until' }, 'ทำซ้ำถึง'), untilField)),
+  count,
   h('label', { class: 'field', htmlFor: 'f-note' }, 'รายละเอียด'),
   h('textarea', { id: 'f-note', name: 'note', rows: 3, maxLength: 2000, value: item?.note ?? '' }),
   h('div', { class: 'form-actions' },
